@@ -1,14 +1,14 @@
 package com.devsuperior.dscatalog.services;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +24,9 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
-	@Transactional(readOnly = true)  //operações e leitura lembra de colocar  =true para melhorar a performace do banco.
-	public List<CategoryDTO> findAll(){
-		List<Category> list = repository.findAll();
+	@Transactional(readOnly = true)                                   //operações e leitura lembra de colocar  =true para melhorar a performace do banco.
+	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest){
+		Page<Category> list = repository.findAll(pageRequest);
 		                                               /*
 		                                               // 01 - podemos fazer assim da moda antiga
 		                                               // uma lista de category para uma list categoryDTO , fazer um for.
@@ -37,8 +37,10 @@ public class CategoryService {
 		
 		                                               // 02 - podemos implementar da forma de expressão lambida, resumida e melhor
 		
-		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList()); // e mando retornar meu listDTO
+		return list.map(x -> new CategoryDTO(x)); // e mando retornar meu listDTO
 	}
+	
+	//busca paginada.
 
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {

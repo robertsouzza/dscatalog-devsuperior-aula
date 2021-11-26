@@ -32,7 +32,7 @@ public class ResourceExceptionHandler {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError error = new StandardError();
 		error.setTimestamp(Instant.now());
-		error.setStatus(status.value()); // 400
+		error.setStatus(status.value());   // 400
 		error.setError("Database exception");
 		error.setMessager(e.getMessage());
 		error.setPath(request.getRequestURI());

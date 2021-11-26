@@ -75,7 +75,7 @@ public class CategoryService {
 			throw new ResourceNotFoundException("Id not found " + id);
 		}
 		catch (DataIntegrityViolationException e) {
-			// não pode excluir uma caegoria por causa da integridade.
+			// não pode excluir uma categoria por causa da integridade.
 			throw new DataBaseException("Integrety violation ");
 		}
 		

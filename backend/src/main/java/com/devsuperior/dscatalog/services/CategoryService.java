@@ -37,7 +37,7 @@ public class CategoryService {
 		
 		                                               // 02 - podemos implementar da forma de expressão lambida, resumida e melhor
 		
-		return list.map(x -> new CategoryDTO(x)); // e mando retornar meu listDTO
+		return list.map(x -> new CategoryDTO(x));      // e mando retornar meu listDTO
 	}
 	
 	//busca paginada.
@@ -82,5 +82,5 @@ public class CategoryService {
 		}
 		
 	}
-
+    
 }

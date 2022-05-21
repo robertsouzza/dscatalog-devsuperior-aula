@@ -8,6 +8,8 @@ public class DscatalogApplication {
    
 	public static void main(String[] args) {
 		SpringApplication.run(DscatalogApplication.class, args);
+		
+		// projeto recuperado em 21/05/2022
 	}
    
 }

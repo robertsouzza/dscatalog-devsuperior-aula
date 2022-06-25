@@ -1,5 +1,7 @@
 package com.devsuperior.dscatalog.services;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,22 +31,16 @@ public class ProductService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	@Transactional(readOnly = true) // operações e leitura lembra de colocar =true para melhorar a performace do
-									// banco.
-	public Page<ProductDTO> findAllPaged(Pageable pageable) {
+	@Transactional(readOnly = true) 
+	/*public Page<ProductDTO> findAllPaged(Pageable pageable) {
 		Page<Product> list = repository.findAll(pageable);
-		/*
-		 * // 01 - podemos fazer assim da moda antiga // uma lista de category para uma
-		 * list categoryDTO , fazer um for. List<ProductDTO> listDTO = new
-		 * ArrayList<>(); // instanciando uma lista vazia for (Product cat : list) { //
-		 * percorrendo minha lista de categorias(list) paraq cada eemento da lista (cat)
-		 * listDTO.add(new ProductDTO(cat)); // pego o elemento cat da lista e passo
-		 * ele de argumento no construtor do ProductDTO (cat) }
-		 */
-
-		// 02 - podemos implementar da forma de expressão lambida, resumida e melhor
-
-		return list.map(x -> new ProductDTO(x)); // e mando retornar meu listDTO
+		return list.map(x -> new ProductDTO(x)); 
+	}*/
+	public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable) {
+		List<Category> categories = (categoryId == 0)? null: Arrays.asList(categoryRepository.getOne(categoryId));
+		
+		Page<Product> list = repository.find(categories, name, pageable);
+		return list.map(x -> new ProductDTO(x)); 
 	}
 
 	// busca paginada.

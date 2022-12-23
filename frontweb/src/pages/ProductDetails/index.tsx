@@ -1,29 +1,38 @@
-import { ReactComponent as ArrowIcon} from 'assets/images/arrow.svg';
+import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
 import ProductPrice from 'components/ProductPrice';
 import './styles.css';
+import { Link } from 'react-router-dom';
 
 const ProductDetails = () => {
   return (
     <div className="product-details-container">
       <div className="base-card product-details-card">
-        <div className="goback-container">
-           <ArrowIcon />
-           <h2>voltar</h2>
-        </div>
+        <Link to="/products">
+          <div className="goback-container">
+            <ArrowIcon />
+            <h2>voltar</h2>
+          </div>
+        </Link>
         <div className="row">
           <div className="col-xl-6">
             <div className="img-container">
-               <img src="https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg" alt="Nome do Produto"/>
+              <img
+                src="https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg"
+                alt="Nome do Produto"
+              />
             </div>
             <div className="name-price-container">
-                <h1>Nome do Produto</h1>
-                <ProductPrice price={2345.67} />
+              <h1>Nome do Produto</h1>
+              <ProductPrice price={2345.67} />
             </div>
           </div>
           <div className="col-xl-6">
             <div className="descripton-container">
-               <h2>Descrição do Produto</h2>
-               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod, vitae.</p>
+              <h2>Descrição do Produto</h2>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod,
+                vitae.
+              </p>
             </div>
           </div>
         </div>

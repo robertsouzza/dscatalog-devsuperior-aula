@@ -41,7 +41,9 @@ const ProductDetails = () => {
         </Link>
         <div className="row">
           <div className="col-xl-6">
-            { isLoading ? <ProductInfoLoader/>:
+            {isLoading ? (
+              <ProductInfoLoader />
+            ) : (
               <>
                 <div className="img-container">
                   <img src={product?.imgUrl} alt={product?.name} />
@@ -51,15 +53,17 @@ const ProductDetails = () => {
                   {product && <ProductPrice price={product?.price} />}
                 </div>
               </>
-            }
+            )}
           </div>
           <div className="col-xl-6">
-            { isLoading ? <ProductDetailsLoader/>:
+            {isLoading ? (
+              <ProductDetailsLoader />
+            ) : (
               <div className="descripton-container">
                 <h2>Descrição do Produto</h2>
                 <p>{product?.description}</p>
               </div>
-            }
+            )}
           </div>
         </div>
       </div>

@@ -5,11 +5,11 @@ import jwtDecode from 'jwt-decode';
 
 type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
-type TokenData ={
+export type TokenData ={
     exp: number;
     user_name: string;
     authorities: Role[];
-}
+};
 type LoginResponse ={
     access_token: string;
     token_type: string;
@@ -17,7 +17,7 @@ type LoginResponse ={
     scope: string;
     UserId: number;
     UserFirstName: string
-}
+};
 
 
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
@@ -30,7 +30,7 @@ const tokenKey = 'authData';
 type LoginData ={
     username: string;
     password: string;
-}
+};
 
 export const requestBackendLogin = (LoginData : LoginData) => {
 
@@ -46,7 +46,7 @@ export const requestBackendLogin = (LoginData : LoginData) => {
 
     return axios({method: 'POST', baseURL: BASE_URL, url:'/oauth/token', data, headers});
 
-}
+};
 
 
 export const requestBackend = (config: AxiosRequestConfig) => {
@@ -63,12 +63,17 @@ export const requestBackend = (config: AxiosRequestConfig) => {
 
 export const saveAuthData = (obj : LoginResponse) => {
       localStorage.setItem(tokenKey, JSON.stringify(obj));
-}
+};
 
 export const getAuthData =() =>{
     const str = localStorage.getItem(tokenKey) ?? "{}";
     return JSON.parse(str) as LoginResponse;
-}
+};
+
+
+export const removeAuthData = () => {
+   localStorage.removeItem(tokenKey);
+};
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
@@ -97,9 +102,9 @@ axios.interceptors.response.use(function (response) {
     }catch(error){
       return undefined;
     }
-  }
+  };
 
   export const isAuthenticated = () : boolean =>{
     const TokenData = getTokenData();
     return (TokenData && TokenData.exp * 1000 > Date.now()) ? true : false;
-  }
+  };

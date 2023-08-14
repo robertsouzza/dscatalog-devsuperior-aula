@@ -24,7 +24,7 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
-	@Transactional(readOnly = true)                                   //operações e leitura lembra de colocar  =true para melhorar a performace do banco.
+	@Transactional(readOnly = true)                   //operações e leitura lembra de colocar  =true para melhorar a performace do banco.
 	public Page<CategoryDTO> findAllPaged(Pageable pageable){
 		Page<Category> list = repository.findAll(pageable);
 		                                               /*

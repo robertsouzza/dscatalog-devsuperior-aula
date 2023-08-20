@@ -15,11 +15,15 @@ const List = () => {
     "categories": [
         {
             "id": 2,
-            "name": "Eletrônicos"
+            "name": "Eletrônicos",
         },
         {
             "id": 1,
-            "name": "Computadores"
+            "name": "Computadores",
+        },
+        {
+            "id": 3,
+            "name": "Celulares",
         },
     ]
    }

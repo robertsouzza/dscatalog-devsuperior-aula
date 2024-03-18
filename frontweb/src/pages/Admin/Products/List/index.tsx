@@ -10,8 +10,14 @@ import { requestBackend } from "util/requests";
 const List = () => {
 
     const [page, setPage] = useState<SpringPage<Product>>();
-
+    
     useEffect(() => {
+        getProducts();
+
+    }, []);
+
+    const getProducts = () => {
+
         const config: AxiosRequestConfig = {
             method: 'GET',
             url: "/products",
@@ -24,9 +30,8 @@ const List = () => {
         requestBackend(config)
             .then((response) => {
                 setPage(response.data);
-            })
-
-    }, []);
+            });
+    };
 
     //variável temporaria
     /*
@@ -73,7 +78,9 @@ const List = () => {
         <div className="product-crud-container">
             <div className="product-crud-bar-container">
                 <Link to="/admin/products/create">
-                    <button className="btn btn-primary text-white btn-crud-add">ADICIONAR</button>
+                    <button className="btn btn-primary text-white btn-crud-add">
+                        ADICIONAR
+                    </button>
                 </Link>
                 <div className="base-card product-filter-container">Search bar</div>
             </div>
@@ -81,7 +88,8 @@ const List = () => {
 
                 {page?.content.map(product => (
                     <div key={product.id} className="col-sm-6 col-md-12">
-                        <ProductCrudCard product={product} />
+                        <ProductCrudCard product={product}
+                            onDelete={() => getProducts()} />
                     </div>
                 ))}
             </div>

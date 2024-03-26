@@ -9,6 +9,7 @@ import { Category } from 'types/category';
 import Select from 'react-select';
 
 import './styles.css';
+import CurrencyInput from 'react-currency-input-field';
 
 
 type UrlParams = {
@@ -57,16 +58,15 @@ const Form = () => {
 
    const onSubmit = (formData: Product) => {
 
-      /*const data = {
+      const data = {
          ...formData,
-         imgUrl: isEditing ? formData.imgUrl : "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg",
-         categories: isEditing ? formData.categories : [{ id: 1, name: "" }]
-      };*/
+         price: String(formData.price).replace(',','.')
+      };
 
       const config: AxiosRequestConfig = {
          method: isEditing ? 'PUT' : 'POST',
          url: isEditing ? `/products/${productId}` : "/products",
-         data: formData,
+         data,
          withCredentials: true,
       };
 
@@ -131,18 +131,25 @@ const Form = () => {
 
 
                      <div className="margin-bottom-30">
-                        <input
-                           {...register('price', {
-                              required: 'Campo obrigatório',
-                           })}
-                           type="text"
-                           className={`form-control base-input ${errors.name ? 'is-invalid' : ''}`}
-                           placeholder="Preço"
+                        <Controller
                            name="price"
+                           rules={{required: 'Campo obrigatório'}}
+                           control={control}
+                           render={({field}) =>(
+                              <CurrencyInput
+                                placeholder="Preço"
+                                className={`form-control base-input ${errors.name ? 'is-invalid' : ''}`}
+                                disableGroupSeparators={true}
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              />
+                           )}
                         />
+                        
                         <div className="invalid-feedback d-block">{errors.price?.message}</div>
                      </div>
-
+                     
+                    
                      <div className="margin-bottom-30">
                         <input
                            {...register('imgUrl', {

@@ -1,21 +1,5 @@
-import jwtDecode from 'jwt-decode';
-import { getAuthData } from './storage';
-
-export type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
-
-export type TokenData = {
-    exp: number;
-    user_name: string;
-    authorities: Role[];
-};
-
-export const getTokenData = (): TokenData | undefined => {
-    try {
-        return jwtDecode(getAuthData().access_token) as TokenData;
-    } catch (error) {
-        return undefined;
-    }
-};
+import { getTokenData } from './token';
+import { Role } from 'types/role';
 
 export const isAuthenticated = (): boolean => {
     const TokenData = getTokenData();
@@ -29,11 +13,6 @@ export const hasAnyRoles = (roles: Role[]): boolean => {
     }
 
     const tokenData = getTokenData();
-    /* posso usar o java script para simplificar o for abaixo.
-      if (tokenData !== undefined){
-        return roles.some(role => tokenData.authorities.includes(role));
-      }
-    */
 
     if (tokenData !== undefined) {
         for (var i = 0; i < roles.length; i++) {
